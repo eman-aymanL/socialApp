@@ -10,14 +10,24 @@ import { useRouter } from 'next/navigation';
 import UserPosts from '../_Components/UserPosts/UserPosts';
 import PostCreation from '../_Components/PostCreation/PostCreation';
 import { toast } from 'react-toastify';
-import Grid from '@mui/material/Grid';
 
-const StyledPaper = styled(Paper)(({ theme }) => ({ padding: theme.spacing(5), maxWidth: 900, margin: 'auto', 
-  backgroundColor: 'white', borderRadius: theme.spacing(3), boxShadow: theme.shadows[5],
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(5),
+  maxWidth: 900,
+  margin: 'auto',
+  backgroundColor: 'white',
+  borderRadius: theme.spacing(3),
+  boxShadow: theme.shadows[5],
 }));
 
-const ProfileAvatar = styled(Avatar)(({ theme }) => ({ width: theme.spacing(18), height: theme.spacing(18), marginBottom: theme.spacing(3), 
-  border: `5px solid #a774be`, transition: 'transform 0.3s ease', cursor: 'pointer', '&:hover': { transform: 'scale(1.05)', },
+const ProfileAvatar = styled(Avatar)(({ theme }) => ({
+  width: theme.spacing(18),
+  height: theme.spacing(18),
+  marginBottom: theme.spacing(3),
+  border: `5px solid #a774be`,
+  transition: 'transform 0.3s ease',
+  cursor: 'pointer',
+  '&:hover': { transform: 'scale(1.05)' },
 }));
 
 const PurpleButton = styled(Button)({
@@ -34,10 +44,11 @@ export default function ProfilePage() {
   const [refresh, setRefresh] = useState(false);
   const router = useRouter();
   const token = Cookies.get('userToken');
-  
+
   if (!token) {
-      router.push('/login');
-    }
+    router.push('/login');
+  }
+
   const fetchProfile = async () => {
     try {
       const token = Cookies.get('userToken');
@@ -52,11 +63,11 @@ export default function ProfilePage() {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchProfile();
   }, []);
-  
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -75,11 +86,11 @@ export default function ProfilePage() {
       const data = await res.json();
 
       if (data.message === 'success') {
-  toast.success('Photo changed successfully!');
-  window.location.reload();
-} else {
-  toast.error('Upload failed: ' + data.message);
-}
+        toast.success('Photo changed successfully!');
+        window.location.reload();
+      } else {
+        toast.error('Upload failed: ' + data.message);
+      }
     } catch (error) {
       console.error('Upload error:', error);
       alert('Something went wrong.');
@@ -106,8 +117,16 @@ export default function ProfilePage() {
   return (
     <Box sx={{ bgcolor: '#f5f5f5', minHeight: '100vh', py: 6 }}>
       <StyledPaper>
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={4} textAlign="center">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 4,
+          }}
+        >
+          <Box sx={{ width: { xs: '100%', md: '33.33%' }, textAlign: 'center' }}>
             <ProfileAvatar src={user?.photo} alt={user?.name} />
             <input
               type="file"
@@ -121,9 +140,9 @@ export default function ProfilePage() {
                 Change Photo
               </PurpleButton>
             </label>
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={8}>
+          <Box sx={{ width: { xs: '100%', md: '66.66%' } }}>
             <Typography variant="h4" gutterBottom>
               {user?.name}
             </Typography>
@@ -151,8 +170,8 @@ export default function ProfilePage() {
                 Logout
               </Button>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </StyledPaper>
 
       <Box sx={{ maxWidth: 900, mx: 'auto', mt: 4 }}>
