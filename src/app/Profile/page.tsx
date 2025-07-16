@@ -136,9 +136,15 @@ export default function ProfilePage() {
               onChange={handleUpload}
             />
             <label htmlFor="upload-photo">
-              <PurpleButton component="span" size="small" sx={{ mt: 1 }}>
-                Change Photo
-              </PurpleButton>
+              <Button
+  variant="contained"
+  size="small"
+  component="label"
+  sx={{ mt: 1, backgroundColor: '#a774be', color: 'white', '&:hover': { backgroundColor: '#9254a3' } }}
+>
+  Change Photo
+</Button>
+
             </label>
           </Box>
 
