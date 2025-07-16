@@ -17,7 +17,7 @@ export default function ClientHome({ posts }: Props) {
     <Box sx={{ bgcolor: '#f0f2f5', minHeight: '100vh', py: 4 }}>
       <Grid container justifyContent="center">
         <Grid
-          item
+          item={true}
           xs={12}
           sm={8}
           md={6}
@@ -27,7 +27,9 @@ export default function ClientHome({ posts }: Props) {
             gap: 3,
           }}
         >
-          <PostCreation />
+          <PostCreation onPostCreated={function (): void {
+            throw new Error('Function not implemented.');
+          } } />
           {posts.map((post) => (
             <Post key={post.id} postDetails={post} />
           ))}

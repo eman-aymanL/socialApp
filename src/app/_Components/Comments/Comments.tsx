@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from 'react';
 import {Avatar,Box,TextField,Typography,Button,} from '@mui/material';
 import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; 
 import Link from 'next/link';
 import { CommentType, PostType } from '@/app/_interfaces/posts.types';
 
@@ -24,7 +24,7 @@ export default function Comments({ postDetails, displayAllComments = false }: Co
   const userId = useMemo(() => {
     if (!token) return null;
     try {
-      const decoded = jwt_decode<TokenPayload>(token);
+      const decoded = jwtDecode<TokenPayload>(token);
       return decoded._id;
     } catch {
       return null;
