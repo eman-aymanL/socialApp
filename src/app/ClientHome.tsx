@@ -34,7 +34,7 @@ export default function ClientHome({ posts }: Props) {
         >
           <PostCreation onPostCreated={() => {}} />
           {posts.map((post) => (
-            <Post key={post.id} postDetails={post} />
+            <Post key={post._id} postDetails={post} />
           ))}
         </Box>
       </Box>
