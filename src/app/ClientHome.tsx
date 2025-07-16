@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import PostCreation from './_Components/PostCreation/PostCreation';
 import Post from './_Components/Post/Post';
 import { PostType } from './_interfaces/posts.types';
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 
 
 type Props = {
