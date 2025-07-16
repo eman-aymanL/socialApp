@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import {
-  Avatar, Box, Button, Typography, Grid, Paper, CircularProgress,
+  Avatar, Box, Button, Typography, Paper, CircularProgress,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import UserPosts from '../_Components/UserPosts/UserPosts';
 import PostCreation from '../_Components/PostCreation/PostCreation';
 import { toast } from 'react-toastify';
+import Grid from '@mui/material/Grid';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({ padding: theme.spacing(5), maxWidth: 900, margin: 'auto', 
   backgroundColor: 'white', borderRadius: theme.spacing(3), boxShadow: theme.shadows[5],
