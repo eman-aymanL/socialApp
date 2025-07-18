@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
   Avatar, Box, Button, Typography, Paper, CircularProgress,
 } from '@mui/material';
@@ -9,7 +9,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import UserPosts from '../_Components/UserPosts/UserPosts';
 import PostCreation from '../_Components/PostCreation/PostCreation';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(5),
@@ -44,17 +45,16 @@ export default function ProfilePage() {
   const [refresh, setRefresh] = useState(false);
   const router = useRouter();
   const token = Cookies.get('userToken');
+  const inputRef = useRef<HTMLInputElement>(null);
 
- useEffect(() => {
-  if (!token) {
-    router.push('/login');
-  }
-}, [token]);
-
+  useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
+  }, [token]);
 
   const fetchProfile = async () => {
     try {
-      const token = Cookies.get('userToken');
       const res = await fetch('https://linked-posts.routemisr.com/users/profile-data', {
         headers: { token: token || '' },
       });
@@ -77,12 +77,13 @@ export default function ProfilePage() {
 
     const formData = new FormData();
     formData.append('photo', file);
-    const token = Cookies.get('userToken');
 
     try {
       const res = await fetch('https://linked-posts.routemisr.com/users/upload-photo', {
         method: 'PUT',
-        headers: { token: token || '' },
+        headers: {
+          token: token || '',
+        },
         body: formData,
       });
 
@@ -90,13 +91,13 @@ export default function ProfilePage() {
 
       if (data.message === 'success') {
         toast.success('Photo changed successfully!');
-        window.location.reload();
+        setTimeout(() => window.location.reload(), 1500);
       } else {
         toast.error('Upload failed: ' + data.message);
       }
     } catch (error) {
       console.error('Upload error:', error);
-      alert('Something went wrong.');
+      toast.error('Something went wrong.');
     }
   };
 
@@ -129,26 +130,36 @@ export default function ProfilePage() {
             gap: 4,
           }}
         >
-          <Box sx={{ width: { xs: '100%', md: '33.33%' }, textAlign: 'center' }}>
-            <ProfileAvatar src={user?.photo} alt={user?.name} />
+          <Box
+  sx={{
+    width: { xs: '100%', md: '33.33%' },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }}
+>
+
+            <ProfileAvatar src={user?.photo} alt={user?.name} onClick={() => inputRef.current?.click()} />
             <input
               type="file"
               accept="image/*"
               style={{ display: 'none' }}
-              id="upload-photo"
+              ref={inputRef}
               onChange={handleUpload}
             />
-            <label htmlFor="upload-photo">
-              <Button
-  variant="contained"
-  size="small"
-  component="label"
-  sx={{ mt: 1, backgroundColor: '#a774be', color: 'white', '&:hover': { backgroundColor: '#9254a3' } }}
->
-  Change Photo
-</Button>
-
-            </label>
+            <Button
+              variant="contained"
+              size="small"
+              sx={{
+                mt: 1,
+                backgroundColor: '#a774be',
+                color: 'white',
+                '&:hover': { backgroundColor: '#9254a3' },
+              }}
+              onClick={() => inputRef.current?.click()}
+            >
+              Change Photo
+            </Button>
           </Box>
 
           <Box sx={{ width: { xs: '100%', md: '66.66%' } }}>
@@ -187,6 +198,8 @@ export default function ProfilePage() {
         <PostCreation onPostCreated={refetchPosts} />
         <UserPosts refreshTrigger={refresh} />
       </Box>
+
+      <ToastContainer position="top-center" />
     </Box>
   );
 }

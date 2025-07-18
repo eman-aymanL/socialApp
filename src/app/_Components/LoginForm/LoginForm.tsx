@@ -36,6 +36,7 @@ export default function LoginForm() {
           dispatch(setUserToken(res.data.token));
           setTimeout(() => {
   router.push('/');
+  setTimeout(() => window.location.reload(), 1500);
 }, 300);
 
         })
@@ -48,6 +49,11 @@ export default function LoginForm() {
   }
 });
       }
+
+
+
+
+
       const user: FormValuesType={
         email:'',
         password:''
