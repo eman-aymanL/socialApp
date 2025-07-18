@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import MuiModal from '@mui/material/Modal';
 
 const style = {
   position: 'absolute',
@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export default function Modal() {
+export default function CustomModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
