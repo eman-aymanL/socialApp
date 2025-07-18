@@ -32,10 +32,11 @@ export default function LoginForm() {
           }
         })
         .then(function(res){
-          console.log('token',res.data.token)
           Cookies.set('userToken',res.data.token)
           dispatch(setUserToken(res.data.token));
-          window.location.href = '/';
+          setTimeout(() => {
+  router.push('/');
+}, 300);
 
         })
         .catch(function(err) {
