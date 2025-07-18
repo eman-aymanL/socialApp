@@ -7,7 +7,10 @@ import ClientHome from './ClientHome';
 export const revalidate = 600;
 
 export default async function Home() {
-  const token = cookies().get('userToken')?.value;
+
+  const cookieStore = await cookies();
+const token = cookieStore.get('userToken')?.value;
+
 
   if (!token) {
     redirect('/login');
@@ -16,8 +19,9 @@ export default async function Home() {
   async function getAllPosts(): Promise<PostType[]> {
     const res = await fetch('https://linked-posts.routemisr.com/posts?limit=100', {
       headers: {
-        token,
-      },
+  Authorization: `Bearer ${token}`,
+},
+
       next: { revalidate: 600 },
     });
 

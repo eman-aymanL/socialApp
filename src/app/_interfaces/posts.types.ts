@@ -1,9 +1,9 @@
 export type PostType={
     _id: string,
     createdAt: string,
-    image: string,
-    body: string
-    comments: CommentType[],
+    image?: string,
+    body?: string
+    comments?: CommentType[],
     user: UserType,
 };
 

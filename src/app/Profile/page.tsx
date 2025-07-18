@@ -45,9 +45,12 @@ export default function ProfilePage() {
   const router = useRouter();
   const token = Cookies.get('userToken');
 
+ useEffect(() => {
   if (!token) {
     router.push('/login');
   }
+}, [token]);
+
 
   const fetchProfile = async () => {
     try {

@@ -6,8 +6,10 @@ import Box from '@mui/material/Box';
 import Post from '@/app/_Components/Post/Post';
 
 export default async function PostDetails(props: { params: { id: string } }) {
-  const cookieStore = cookies();
-  const token = cookieStore.get('userToken')?.value;
+  
+  const cookieStore = await cookies();
+const token = cookieStore.get('userToken')?.value;
+
 
   async function getSinglePost(): Promise<PostType> {
     const res = await fetch(`https://linked-posts.routemisr.com/posts/${props.params.id}`, {

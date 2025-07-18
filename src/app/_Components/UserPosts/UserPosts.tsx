@@ -136,8 +136,10 @@ export default function UserPosts({ refreshTrigger }: Props) {
 
       const postsData = await postsRes.json();
       const sortedPosts = (postsData.posts || []).sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+  (a: UserPostType, b: UserPostType) =>
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+);
+
 
       setUserPosts(sortedPosts);
     } catch (err) {

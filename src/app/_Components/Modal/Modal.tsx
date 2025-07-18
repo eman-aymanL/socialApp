@@ -24,7 +24,7 @@ export default function CustomModal() {
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
+      <MuiModal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -38,7 +38,7 @@ export default function CustomModal() {
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
         </Box>
-      </Modal>
+      </MuiModal>
     </div>
   );
 }

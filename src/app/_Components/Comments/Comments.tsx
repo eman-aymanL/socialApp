@@ -59,6 +59,13 @@ export default function Comments({ postDetails, displayAllComments = false }: Co
   };
 
   function SingleComment({ comment }: { comment: CommentType }) {
+    if (!comment || !comment.commentCreator) return null; 
+
+  const photoSrc =
+    comment.commentCreator?.photo?.includes('undefined') || !comment.commentCreator.photo
+      ? '/default-avatar.png'
+      : comment.commentCreator.photo;
+
     return (
       <Box sx={{ px: 2, py: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>

@@ -20,7 +20,6 @@ type PostProps = {
 export default function Post({ postDetails , hasMoreComments= false}: PostProps) {
   const firstComment = postDetails.comments?.[0];
 
-  console.log('hena', hasMoreComments)
 
 
 
@@ -45,11 +44,12 @@ export default function Post({ postDetails , hasMoreComments= false}: PostProps)
         sx={{ alignItems: 'flex-start', pb: 0 }}
       />
 
-      <CardContent sx={{ pt: 1, pb: 1 }}>
-        <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
-          {firstComment.content}
-        </Typography>
-      </CardContent>
+     <CardContent sx={{ pt: 1, pb: 1 }}>
+  <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
+    {firstComment?.content}
+  </Typography>
+</CardContent>
+
 
       {!!postDetails.image && (
         <Box
